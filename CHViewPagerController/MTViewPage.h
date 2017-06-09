@@ -1,5 +1,5 @@
 //
-//  MTViewPagerController.h
+//  MTViewPage.h
 //  CHViewPagerController
 //
 //  Created by 陈灿锋 on 2017/6/9.
@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "MTViewPageEnum.h"
-#import "MTBaseViewController.h"
 /**
  * Every option has a default value.
  *
@@ -23,24 +22,21 @@
  */
 
 
-@protocol ViewPagerDataSource;
-@protocol ViewPagerDelegate;
+@protocol VViewPagerDataSource;
+@protocol VViewPagerDelegate;
+@interface MTViewPage : UIView
 
-@interface MTViewPagerController : MTBaseViewController
-@property (nonatomic) CGFloat contentViewBottom; 
-@property UIView *contentView;
+
 /**
  * The object that acts as the data source of the receiving viewPager
  * @discussion The data source must adopt the ViewPagerDataSource protocol. The data source is not retained.
  */
-@property (weak) id <ViewPagerDataSource> dataSource;
+@property (weak) id <VViewPagerDataSource> dataSource;
 /**
  * The object that acts as the delegate of the receiving viewPager
  * @discussion The delegate must adopt the ViewPagerDelegate protocol. The delegate is not retained.
  */
-@property (weak) id <ViewPagerDelegate> delegate;
-
-@property (nonatomic) BOOL bounce;
+@property (weak) id <VViewPagerDelegate> delegate;
 
 #pragma mark Methods
 /**
@@ -78,7 +74,7 @@
  * Call this method to get the value of a given option.
  * Returns NAN for any undefined option.
  *
- * @param option The option key. Keys are defined in MTViewPagerController.h
+ * @param option The option key. Keys are defined in MTViewPage.h
  *
  * @return A CGFloat, defining the setting for the given option
  */
@@ -88,7 +84,7 @@
  * Call this method to get the color of a given component.
  * Returns [UIColor clearColor] for any undefined component.
  *
- * @param component The component key. Keys are defined in MTViewPagerController.h
+ * @param component The component key. Keys are defined in MTViewPage.h
  *
  * @return A UIColor for the given component
  */
@@ -97,14 +93,14 @@
 @end
 
 #pragma mark dataSource
-@protocol ViewPagerDataSource <NSObject>
+@protocol VViewPagerDataSource <NSObject>
 /**
  * Asks dataSource how many tabs will there be.
  *
  * @param viewPager The viewPager that's subject to
  * @return Number of tabs
  */
-- (NSUInteger)numberOfTabsForViewPager:(MTViewPagerController *)viewPager;
+- (NSUInteger)numberOfTabsForViewPager:(MTViewPage *)viewPager;
 /**
  * Asks dataSource to give a view to display as a tab item.
  * It is suggested to return a view with a clearColor background.
@@ -115,18 +111,10 @@
  *
  * @return A view that will be shown as tab at the given index
  */
-- (UIView *)viewPager:(MTViewPagerController *)viewPager viewForTabAtIndex:(NSUInteger)index;
+- (UIView *)viewPager:(MTViewPage *)viewPager viewForTabAtIndex:(NSUInteger)index;
 
 @optional
-/**
- * The content for any tab. Return a view controller and ViewPager will use its view to show as content.
- *
- * @param viewPager The viewPager that's subject to
- * @param index The index of the content whose view is asked
- *
- * @return A viewController whose view will be shown as content
- */
-- (UIViewController *)viewPager:(MTViewPagerController *)viewPager contentViewControllerForTabAtIndex:(NSUInteger)index;
+
 /**
  * The content for any tab. Return a view and ViewPager will use it to show as content.
  *
@@ -135,12 +123,12 @@
  *
  * @return A view which will be shown as content
  */
-- (UIView *)viewPager:(MTViewPagerController *)viewPager contentViewForTabAtIndex:(NSUInteger)index;
+- (UIView *)viewPager:(MTViewPage *)viewPager contentViewForTabAtIndex:(NSUInteger)index;
 
 @end
 
 #pragma mark delegate
-@protocol ViewPagerDelegate <NSObject>
+@protocol VViewPagerDelegate <NSObject>
 
 @optional
 /**
@@ -149,7 +137,7 @@
  * @param viewPager The viewPager that's subject to
  * @param index The index of the active tab
  */
-- (void)viewPager:(MTViewPagerController *)viewPager didChangeTabToIndex:(NSUInteger)index;
+- (void)viewPager:(MTViewPage *)viewPager didChangeTabToIndex:(NSUInteger)index;
 /**
  * Every time -reloadData method called, ViewPager will ask its delegate for option values.
  * So you don't have to set options from ViewPager itself.
@@ -157,12 +145,12 @@
  * Just return the values for the interested options and return the given 'value' parameter for the rest.
  *
  * @param viewPager The viewPager that's subject to
- * @param option The option key. Keys are defined in MTViewPagerController.h
+ * @param option The option key. Keys are defined in MTViewPage.h
  * @param value The default value for the given option
  *
  * @return A CGFloat, defining the setting for the given option
  */
-- (CGFloat)viewPager:(MTViewPagerController *)viewPager valueForOption:(ViewPagerOption)option withDefault:(CGFloat)value;
+- (CGFloat)viewPager:(MTViewPage *)viewPager valueForOption:(ViewPagerOption)option withDefault:(CGFloat)value;
 
 /**
  * Use this method to customize the look and feel.
@@ -173,11 +161,11 @@
  * and indicator will change its own color.
  *
  * @param viewPager The viewPager that's subject to
- * @param component The component key. Keys are defined in MTViewPagerController.h
+ * @param component The component key. Keys are defined in MTViewPage.h
  * @param color The default color for the given component
  *
  * @return A UIColor for the given component
  */
-- (UIColor *)viewPager:(MTViewPagerController *)viewPager colorForComponent:(ViewPagerComponent)component withDefault:(UIColor *)color;
+- (UIColor *)viewPager:(MTViewPage *)viewPager colorForComponent:(ViewPagerComponent)component withDefault:(UIColor *)color;
 
 @end

@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "MTViewPageDemoController.h"
+#import "MTSegmentedDemoViewController.h"
 
 @interface AppDelegate ()
 
@@ -19,7 +19,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen]bounds]];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[MTViewPageDemoController alloc] init]];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[[MTSegmentedDemoViewController alloc] init]];
     
     [self.window setRootViewController:nav];
     [self.window makeKeyAndVisible];
