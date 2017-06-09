@@ -1,0 +1,17 @@
+PODS:
+  - MTControls/MTBaseVC (0.2.0):
+    - MTControls/MTVcFucInfo
+    - SVProgressHUD (~> 2.0.3)
+  - MTControls/MTVcFucInfo (0.2.0)
+  - SVProgressHUD (2.0.3)
+
+DEPENDENCIES:
+  - MTControls/MTBaseVC
+
+SPEC CHECKSUMS:
+  MTControls: d715c68fdfdc7f133942973a9a097b870dbb0d79
+  SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
+
+PODFILE CHECKSUM: ce65ed216f16440faaedc295966d753001bbaba1
+
+COCOAPODS: 1.2.1.beta.1
